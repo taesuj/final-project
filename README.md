@@ -16,12 +16,11 @@ View 템플릿 : React<br>
 - #### 메인페이지 화면<br><br>
 ![배경](https://user-images.githubusercontent.com/117873818/224891979-151b7c22-9630-4b7c-90c9-ae14e9c2df99.jpg)
 
-- #### ERD 구성<br><br>
-![image](https://user-images.githubusercontent.com/117874997/215296621-de57e2fe-60a8-4aab-98e9-eb945509b133.png)
-
 ## 제가 구현한 기능으로는<br>
 - 로그인<br>
 - 회원가입/회원탈퇴<br>
 - 아이디/비밀번호 찾기<br>
 
 ※ 1. 상세 견적 조회
+
+![image](https://user-images.githubusercontent.com/117873818/224911753-178a5813-c396-4e23-9ece-84aab7afa6d6.png)
