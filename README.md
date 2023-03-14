@@ -109,6 +109,83 @@ public Map<Object, Object> loginProc(User user, HttpSession session){
 <br><br>
 - #### 로그인 화면<br><br>
 
+![image](https://user-images.githubusercontent.com/117873818/225042607-04c467a4-7699-42ff-9837-4d57d6ef9317.png)
 
+
+※ 2. 회원가입/회원탈퇴
+
+## Back_EstimateController
+```java
+
+```
+## Back_EstimateService
+```java
+public Map<Object, Object> loginProc(User user, HttpSession session){
+        log.info("loginProc()");
+        Map<Object, Object> result = new HashMap<>();
+
+        User uData = null;
+        uData = uRepo.findByUid(user.getUid());
+
+        try {
+
+            if(uData != null || user.getUid().equals("Admin")){
+                if(user.getUid().equals("Admin")){
+                    adminlogin(user,session);
+
+                    result.put("msg" , "관리자계정으로 로그인되었습니다");
+                    result.put("uid","Admin");
+                    result.put("success", true);
+
+                    redirect();
+                    return result;
+                }
+
+                String cPwd = uData.getUpwd();
+
+                if(encoder.matches(user.getUpwd(),cPwd)){
+                    session.setAttribute("loginName",uData.getUname());
+                    session.setAttribute("loginId",uData.getUid());
+                    log.info((String)session.getAttribute("loginName"));
+                    session.setMaxInactiveInterval(30*60);
+                    result.put("msg" , "로그인 성공");
+                    result.put("success", true);
+                    result.put("uid", uData.getUid());
+
+                    return result;
+                }else {
+                    result.put("msg" , "비밀번호를 확인해주세요");
+                    result.put("success", false);
+
+                }
+            }else {
+                result.put("msg" , "아이디를 찾을 수 없습니다");
+                result.put("success", false);
+
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            result.put("msg" , "로그인 실패");
+            result.put("success", false);
+
+        }
+
+        return result;
+    }
+```
+
+    {
+    public ReturnMsg userLogout(HttpSession session){
+        ReturnMsg rm = new ReturnMsg();
+        session.invalidate();
+        rm.setFlag(true);
+        rm.setMsg("로그아웃 되었습니다.");
+        return rm;
+    }
+}
+
+<br><br>
+- #### 로그인 화면<br><br>
 
 
