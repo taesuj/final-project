@@ -107,6 +107,8 @@ public Map<Object, Object> loginProc(User user, HttpSession session){
 }
 
 <br><br>
-- #### 검색 화면<br><br>
+- #### 로그인 화면<br><br>
 
-![image](https://user-images.githubusercontent.com/117873818/224911753-178a5813-c396-4e23-9ece-84aab7afa6d6.png)
+
+
+
