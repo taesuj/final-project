@@ -390,7 +390,9 @@ public ReturnMsg userpwdsearch(String email) {
 
 비밀번호 찾기 기능에서 이메일 인증에 성공하면, 임시패스워드를 암호화 처리하여 발급하게 되며 자동으로 update하는 기능을 구현하였습니다.
 
-## React
+![image](https://user-images.githubusercontent.com/117873818/225114883-7157d83f-d219-4aaf-8f76-f44dc312432c.png)
+
+## React.join.js
 ```java
 const Join = () => {
   const nav = useNavigate();
@@ -661,6 +663,95 @@ export default Join;
 
 ```
 
+## React.login.js
+```java
+import axios from "axios";
+import React, { useCallback, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import Button from "./etc/Button";
+import "./etc/Button.scss";
+import "./Login.scss";
+
+const Login = ({ sucLogin }) => {
+  const nav = useNavigate();
+  const [form, setForm] = useState({
+    uid: "",
+    upwd: "",
+  });
+  const { uid, upwd } = form;
+
+  const sendLogin = (e) => {
+    e.preventDefault();
+
+    axios
+      .post("/user/login", form)
+      .then((res) => {
+        if (res.data.success === true) {
+          const uid = res.data.uid;
+          sucLogin(uid);
+          //로그인 상태 유지(세션)
+          sessionStorage.setItem("uid", uid);
+          nav("/home");
+        } else {
+          alert("아이디나 비밀번호가 틀립니다.");
+          const formObj = {
+            uid: "",
+            upwd: "",
+          };
+          setForm(formObj);
+        }
+      })
+      .catch((err) => console.log(err));
+  };
+
+  const onChange = useCallback(
+    (e) => {
+      const formObj = {
+        ...form,
+        [e.target.name]: e.target.value,
+      };
+      setForm(formObj);
+    },
+    [form]
+  );
+
+  return (
+    <div className="Login">
+      <form className="Content" onSubmit={sendLogin}>
+        <h2 className="main_title">로그인</h2>
+        <input
+          className="Input"
+          name="uid"
+          value={uid}
+          placeholder="아이디"
+          onChange={onChange}
+          autoFocus
+          required
+        />
+        <input
+          type="password"
+          className="Input"
+          name="upwd"
+          value={upwd}
+          placeholder="비밀번호"
+          onChange={onChange}
+          required
+        />
+        <Button color="ouir1" type="submit" size="large">
+          로그인
+        </Button>
+        <div className="U1">
+        <li>아이디 찾기</li>
+        <li>비밀번호 찾기</li>
+        </div>
+      </form>
+    </div>
+  );
+};
+
+export default Login;
+
+```
 
 
 
