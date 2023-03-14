@@ -21,6 +21,92 @@ View 템플릿 : React<br>
 - 회원가입/회원탈퇴<br>
 - 아이디/비밀번호 찾기<br>
 
-※ 1. 상세 견적 조회
+
+※ 1. 로그인
+
+## Back_EstimateController
+```java
+@PostMapping("/user/login")
+    public Map<Object, Object> login(@RequestBody User user, HttpSession session){
+        log.info("login()");
+        return uServ.loginProc(user, session);
+    }
+
+    @PostMapping("/user/logout")
+    @ResponseBody
+    public ReturnMsg userLogout(HttpSession session){
+        log.info("userLogout()");
+        return uServ.userLogout(session);
+    }
+```
+## Back_EstimateService
+```java
+public Map<Object, Object> loginProc(User user, HttpSession session){
+        log.info("loginProc()");
+        Map<Object, Object> result = new HashMap<>();
+
+        User uData = null;
+        uData = uRepo.findByUid(user.getUid());
+
+        try {
+
+            if(uData != null || user.getUid().equals("Admin")){
+                if(user.getUid().equals("Admin")){
+                    adminlogin(user,session);
+
+                    result.put("msg" , "관리자계정으로 로그인되었습니다");
+                    result.put("uid","Admin");
+                    result.put("success", true);
+
+                    redirect();
+                    return result;
+                }
+
+                String cPwd = uData.getUpwd();
+
+                if(encoder.matches(user.getUpwd(),cPwd)){
+                    session.setAttribute("loginName",uData.getUname());
+                    session.setAttribute("loginId",uData.getUid());
+                    log.info((String)session.getAttribute("loginName"));
+                    session.setMaxInactiveInterval(30*60);
+                    result.put("msg" , "로그인 성공");
+                    result.put("success", true);
+                    result.put("uid", uData.getUid());
+
+                    return result;
+                }else {
+                    result.put("msg" , "비밀번호를 확인해주세요");
+                    result.put("success", false);
+
+                }
+            }else {
+                result.put("msg" , "아이디를 찾을 수 없습니다");
+                result.put("success", false);
+
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            result.put("msg" , "로그인 실패");
+            result.put("success", false);
+
+        }
+
+        return result;
+    }
+```
+
+    {
+    public ReturnMsg userLogout(HttpSession session){
+        ReturnMsg rm = new ReturnMsg();
+        session.invalidate();
+        rm.setFlag(true);
+        rm.setMsg("로그아웃 되었습니다.");
+        return rm;
+    }
+}
+
+<br><br>
+- #### 검색 화면<br><br>
 
 ![image](https://user-images.githubusercontent.com/117873818/224911753-178a5813-c396-4e23-9ece-84aab7afa6d6.png)
