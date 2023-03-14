@@ -291,6 +291,7 @@ public class MailService {
 이메일 인증 시 임시코드를 임의로 메일로 발급하여 인증에 성공할 시 회원가입 버튼이 활성화 되도록 코드를 작성하였습니다.
 
 ![image](https://user-images.githubusercontent.com/117873818/225107022-e94685b3-61c6-4517-9f9f-c8e4226ee9e2.png)
+![인증](https://user-images.githubusercontent.com/117873818/225111641-69d54eef-3b26-43d2-b695-48675f4a5677.png)
 
 ※ 3. 아이디찾기/패스워드 
 
