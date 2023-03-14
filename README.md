@@ -14,7 +14,7 @@ View 템플릿 : React<br>
 실제로 카페 운영중인 지인에게 MD 배달과 음료 주문 서비스를 포함한 페이지 개설 요청으로 실행<br> 
 
 - #### 메인페이지 화면<br><br>
-![image](https://user-images.githubusercontent.com/117874997/215312693-84f6a19e-68c2-48b6-9819-7d17f8b525db.png)
+![배경](https://user-images.githubusercontent.com/117873818/224891979-151b7c22-9630-4b7c-90c9-ae14e9c2df99.jpg)
 
 - #### ERD 구성<br><br>
 ![image](https://user-images.githubusercontent.com/117874997/215296621-de57e2fe-60a8-4aab-98e9-eb945509b133.png)
